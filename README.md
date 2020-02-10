@@ -61,3 +61,64 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 - Add a characters remaining counter
 - Improve accessibility of the app with WAI-ARIA attributes
 - Add unit tests
+
+
+## Plan
+### 1. Detect cursor, word, pattern
+- Use a textarea
+- Detect the cursor inside textarea
+- Isolate the word surrounding the cursor
+- Check for the pattern @xx
+- Update state in some way
+- Refactor that into a hook, renderprop, or HOC
+- Refactor the pattern search into separate util
+
+### 2. Set up basic component structure
+- Shell components with basic unit tests
+
+### 3. Make basic api request/response
+- Get API functioning
+- Get props passing along
+- Basic unit test stubbing
+
+#### Components
+- ```<Tweet>``` 
+     - props: 
+          - max chars
+          - searchUrl
+     - Container for overall tweet component
+     - Makes API requests on the onDetect callback
+     - Contains UI for Selectable List on API resp
+     - OnSelect, render passing replaceString  
+     - Handle Chars remaining (bonus)
+
+- ```<TweetControls>```
+     - layout UI for buttons and charsremaining
+
+- ```TweetInput```
+     - props: 
+          - replaceString a word to replace
+          - onChange - a callback on change
+          - onDetect - callback to hit API
+     - Contains the input field, capture change
+     - Leverages the detection hook thingy
+     - Callback onChange so parent always has compleet tweet  
+     - Callback onDetect so parent can do Search
+
+- ```<SelectableList thingy>```
+     - props:
+          - data - an array of objects
+     - keyboard events should be fun
+
+- ```<SelectableListItem>```
+     - props: data 
+     - list item components
+     - style/layout for users, 
+     - probably callback on click passing data
+
+
+- **Additional stuff, priority**
+     - 1. debounce
+     - 3. keyboard navigation in slectable list
+     - 2. chars remaining
+     - 4. Make it perty
