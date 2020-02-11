@@ -2,6 +2,10 @@
 // 2. Util: Pattern matching - Validate a @username 
 // 3. Util: Word Replace - Modify input string to replace word with the incoming "TypeAhead" name 
 
+/**
+  Detects input change, 
+  Finds words based on cursor position
+ */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import useWordFind from '../../hooks/useWordFind'
@@ -13,12 +17,12 @@ const TweetInput = ({placeholder}) => {
 
   // if word qualifies as a twitter handle, set handle state=
   useEffect((stuff) => {
-    if (bounds) {
-      const word = input.slice(bounds.start, bounds.end)
+    if (bounds) {      
+      const word = input.slice(bounds.start, bounds.end)      
       const handle = findUserHandle(word)
+      
       if (handle) {
-        console.log('handle: @',handle)
-        // make the API request ???
+        // make request?
       }
     }
   }, [bounds])
@@ -36,7 +40,7 @@ const TweetInput = ({placeholder}) => {
         onChange = {onChange}
       />
       <button onClick={() => {
-        const newStr = replaceAt(input, 'FOOOBAR', bounds.start, bounds.end)
+        const newStr = replaceAt(input, '-----', bounds.start, bounds.end)
         setInput(newStr)
       }}>
         Replace the word 

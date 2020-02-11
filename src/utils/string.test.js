@@ -1,6 +1,6 @@
 import { findUserHandle, replaceAt } from './string'
 
-describe.only('String Utilities', () => {
+describe('String Utilities', () => {
   
   describe('findUserHandle()',() => {
 

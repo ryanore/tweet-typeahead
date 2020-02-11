@@ -8,22 +8,28 @@ import {useState, useEffect} from 'react'
  */
 
 const useWordFind = (input) => {
-  const [cursor, setCursor] = useState(0)
+  const [cursor, setCursor] = useState(input.length || 0)
   const [bounds, setBounds] = useState(null)
   
-  useEffect((stuff) => {
+  useEffect(() => {
     if (input) {
       const bounds = {start: 0, end: input.length}
-      for (let j = cursor; j >= 0; j--) {
-        if (input[j] === ' ') {
-          bounds.start = j+1;  break;
-        }
-      }
       for (let i = cursor; i < input.length; i++) {
         if (input[i] === ' ') {
           bounds.end = i; break;
         }
       }
+      
+      for (let j = cursor; j >= 0; --j) {
+        if (input[j] === ' ') {
+          bounds.start = j+1; break;
+        }
+      }
+      // accounts for cursor being on empty spaces
+      if (bounds.end < bounds.start){
+        bounds.start = bounds.end
+      }
+      
       setBounds(bounds)       
     }
   }, [cursor, input])
