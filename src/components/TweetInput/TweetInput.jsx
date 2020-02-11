@@ -1,68 +1,45 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { findUserHandle } from '../../utils/string'
+import useWordFind from '../../hooks/useWordFind'
+import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
 
 const TweetInput = ({placeholder}) => {
   const [input, setInput] = useState('')
-  const [cursor, setCursor] = useState(0)
-  const [bounds, setBounds] = useState(null)
   const [handle, setHandle] = useState(null)
-  
+  const [bounds, onCursor, attrs] = useWordFind(input)
 
-  // When we detect that the cursor has changed
-  // Isolate the word, and set the bounds
-  useEffect(() => {
-    const bounds = {start: 0, end: input.length}
-    // Pre cursor: detect beginning of word
-    for (let j = cursor; j >= 0; j--) {
-      if (input[j] === ' ') {
-        bounds.start = j+1;  break;
-      }
-    }
-    // Post cursor:  detect end of word
-    for (let i = cursor; i < input.length; i++) {
-     if (input[i] === ' ') {
-        bounds.end = i; break;
-      }
-    }
-    setBounds(bounds) 
-  }, [cursor])
-
-
-  // set a "handle" property, which is the current word, 
-  // if  qualifies as a twitter handle
-  useEffect(() => {
+  // if word qualifies as a twitter handle, set handle state=
+  useEffect((stuff) => {
     if (bounds) {
-      const word = input.substring(bounds.start, bounds.end)
-      setHandle(findUserHandle(word))
+      const word = input.slice(bounds.start, bounds.end)
+      const handle = findUserHandle(word)
+      if (handle) {
+        // make the API request ???
+      }
     }
   }, [bounds])
 
-  const onInteraction = (e) => {
+  const onChange = (e) => {
     setInput(e.target.value)
-    setCursor(e.target.selectionStart)
+    onCursor(e)
   }
 
-  const onKeyUp = (e) => {
-    if (e.key.search('Arrow') > -1) {
-      onInteraction(e)
-    }    
-  }
-  
   return (
     <div>
       <textarea value={input}
         placeholder={placeholder}
-        onChange={onInteraction}
-        onClick={onInteraction}
-        onKeyUp={onKeyUp}
+        onChange = {onChange}
+        {...attrs}
       />
-      <p>{JSON.stringify(bounds)}</p>
-      <p>{handle}</p>
+      <button onClick={() => {
+        const newStr = replaceAt(input, 'FOOOBAR', bounds.start, bounds.end)
+        setInput(newStr)
+      }}>
+        Replace the word 
+      </button>
     </div>
   )
 }
-
 
 TweetInput.propTypes = {
   placeholder: PropTypes.string,
@@ -71,7 +48,5 @@ TweetInput.propTypes = {
 TweetInput.defaultProps = {
   placeholder: 'What\'s Happening?'
 }
-
-
 
 export default TweetInput;
