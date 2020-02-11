@@ -1,31 +1,36 @@
-// 1. Hook: useWordFind -  Word detection, isolation based on Cursor Position in an input/texarea
-// 2. Util: Pattern matching - Validate a @username 
-// 3. Util: Word Replace - Modify input string to replace word with the incoming "TypeAhead" name 
-
-/**
-  Detects input change, 
-  Finds words based on cursor position
- */
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import useWordFind from '../../hooks/useWordFind'
 import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
 
-const TweetInput = ({placeholder}) => {
+const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
   const [input, setInput] = useState('')
   const {bounds, onCursor, attrs} = useWordFind(input)
 
-  // if word qualifies as a twitter handle, set handle state=
-  useEffect((stuff) => {
+  // if word qualifies as a twitter handle, set handle state
+  useEffect(() => {
     if (bounds) {      
       const word = input.slice(bounds.start, bounds.end)      
       const handle = findUserHandle(word)
-      
+
       if (handle) {
-        // make request?
+        console.log(handle);
       }
     }
   }, [bounds])
+
+  // replace text with whatever was passed in as a prop
+  useEffect(() => {
+    if (replaceText) {
+      const newStr = replaceAt(input, replaceText, bounds.start, bounds.end)
+      setInput(newStr)
+    }
+  }, [replaceText])
+
+  useEffect(() => {
+    onTweetUpdate(input)    
+  }, [input])
+
 
   const onChange = (e) => {
     setInput(e.target.value)
@@ -40,17 +45,16 @@ const TweetInput = ({placeholder}) => {
         onChange = {onChange}
       />
       <button onClick={() => {
-        const newStr = replaceAt(input, '-----', bounds.start, bounds.end)
-        setInput(newStr)
-      }}>
-        Replace the word 
-      </button>
+        onSearch('farts')
+      }}>search</button>
     </div>
   )
 }
 
 TweetInput.propTypes = {
   placeholder: PropTypes.string,
+  replaceText: PropTypes.string,
+  onSearch: PropTypes.func.isRequired
 }
 
 TweetInput.defaultProps = {

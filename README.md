@@ -64,17 +64,17 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 
 
 ## Plan
-### 1. Detect cursor, word, pattern
-- Use a textarea
-- Detect the cursor inside textarea
-- Isolate the word surrounding the cursor
-- Check for the pattern @xx
-- Update state in some way
-- Refactor that into a hook, renderprop, or HOC
-- Refactor the pattern search into separate util
+### ✅1. Detect cursor, word, pattern
+- ✅Use a textarea
+- ✅Detect the cursor inside textarea
+- ✅Isolate the word surrounding the cursor
+- ✅Check for the pattern @xx
+- ✅Update state in some way
+- ✅Refactor that into a hook, renderprop, or HOC
+- ✅Refactor the pattern search into separate util
 
 ### 2. Set up basic component structure
-- Shell components with basic unit tests
+- ✅Shell components with basic unit tests
 
 ### 3. Make basic api request/response
 - Get API functioning
