@@ -16,7 +16,7 @@ export const parseString = (pattern, str) => {
 */
 export const findUserHandle = (str, pattern=/(^|[^@\w])@(\w{1,15})\b/) => {
   const match = parseString(pattern , str)
-  if (match && match[0] && match[0].length >= 3) {
+  if (match && match[0] && match[0].length > 3) {
     return match[0]
   }
   return null

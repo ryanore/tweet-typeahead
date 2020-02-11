@@ -38,15 +38,15 @@ const useWordFind = (input) => {
     }    
   }
 
-  return [
+  return {
     bounds,
     onCursor,
-    {
+    attrs: {
       onKeyUp: onKeyUp,
       onClick: onCursor,
-      /**/
+      onChange: onCursor
     }
-  ]
+  }
 }
 
 export default useWordFind

@@ -1,3 +1,7 @@
+// 1. Hook: useWordFind -  Word detection, isolation based on Cursor Position in an input/texarea
+// 2. Util: Pattern matching - Validate a @username 
+// 3. Util: Word Replace - Modify input string to replace word with the incoming "TypeAhead" name 
+
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import useWordFind from '../../hooks/useWordFind'
@@ -5,8 +9,7 @@ import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/str
 
 const TweetInput = ({placeholder}) => {
   const [input, setInput] = useState('')
-  const [handle, setHandle] = useState(null)
-  const [bounds, onCursor, attrs] = useWordFind(input)
+  const {bounds, onCursor, attrs} = useWordFind(input)
 
   // if word qualifies as a twitter handle, set handle state=
   useEffect((stuff) => {
@@ -14,6 +17,7 @@ const TweetInput = ({placeholder}) => {
       const word = input.slice(bounds.start, bounds.end)
       const handle = findUserHandle(word)
       if (handle) {
+        console.log('handle: @',handle)
         // make the API request ???
       }
     }
@@ -28,8 +32,8 @@ const TweetInput = ({placeholder}) => {
     <div>
       <textarea value={input}
         placeholder={placeholder}
-        onChange = {onChange}
         {...attrs}
+        onChange = {onChange}
       />
       <button onClick={() => {
         const newStr = replaceAt(input, 'FOOOBAR', bounds.start, bounds.end)
