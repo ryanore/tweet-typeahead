@@ -1,0 +1,26 @@
+.selectListItem {
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid rgb(230, 236, 240);
+  padding: .5em;
+  cursor: pointer;
+}
+.selectListItem:hover {
+  background: rgb(245, 248, 250);
+}
+
+.Avatar {
+  flex: 1;
+}
+
+.userDetails {
+  padding: .5em;
+}
+.lighter {
+  color: rgb(101, 119, 134);
+}
+
+.withFocus {
+  background: rgb(245, 248, 250);
+}
+

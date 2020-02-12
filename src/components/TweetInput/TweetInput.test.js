@@ -71,9 +71,10 @@ describe('TweetInput Component',() => {
       input.selectionStart = 10
       fireEvent.click(input)
 
-      // await(() => {
-      //   expect(spy).not.toBeCalled()
-      // })
+      // THIS WAS WORKING BEFORE THE DEBOUNCE WAS ADDED... 
+      // TODO - figure out async in jest
+
+      // expect(spy).not.toBeCalled()
       // // move to "in" spy is not called
       // input.selectionStart = 22
       // fireEvent.click(input)

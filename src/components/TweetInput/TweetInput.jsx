@@ -12,29 +12,42 @@ const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
   
   useEffect(() => {
     if (bounds) { 
+      console.log('bounds changed ', bounds);
       setWord(input.slice(bounds.start, bounds.end) )
     }
   }, [bounds])
 
   useEffect(() => {
     if (handle) {
+      console.log('handleChanged-', handle);
+      
       onSearch(handle)
+      setWord(null)
     }
   }, [handle])
 
   useEffect(() => {
     if (replaceText) {
+      console.log('replaceText-', replaceText);
+      
       const newStr = replaceAt(input, replaceText, bounds.start, bounds.end)
       setInput(newStr)
+      onCursor({
+        target: {
+          selectionStart: input.length
+        }
+      })
     }
   }, [replaceText])
 
   useEffect(() => {
-    onTweetUpdate(input)    
+    // onTweetUpdate(input)    
   }, [input])
 
 
   const onChange = (e) => {
+    console.log('onchange-', e.target.value);
+    
     setInput(e.target.value)
     onCursor(e)
   }
@@ -53,7 +66,8 @@ const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
 TweetInput.propTypes = {
   placeholder: PropTypes.string,
   replaceText: PropTypes.string,
-  onSearch: PropTypes.func.isRequired
+  onSearch: PropTypes.func.isRequired,
+  onTweetUpdate: PropTypes.func.isRequired
 }
 
 TweetInput.defaultProps = {

@@ -40,10 +40,10 @@
 
 ## Requirements
 
-- When typing a message, the typeahead will search for screen name suggestions after inserting or editing an @ followed by 2 alphanumeric characters (a-z, 0-9) 
+-  ✅When typing a message, the typeahead will search for screen name suggestions after inserting or editing an @ followed by 2 alphanumeric characters (a-z, 0-9) 
      - ex: @a does nothing, but @ab will start suggestions screen names
 
-- The typeahead should display suggestions for the appropriate mention when updating a message that contains multiple screen names
+-  ✅The typeahead should display suggestions for the appropriate mention when updating a message that contains multiple screen names
      - ex: “Composing a message for @Twitter from @SproutSocial”
 
 - The user can update both @Twitter and @SproutSocial
@@ -62,6 +62,10 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 - Improve accessibility of the app with WAI-ARIA attributes
 - Add unit tests
 
+
+## TODO
+- figure out unit testing the async for dbounce (jest/testing-library?)
+- rethink architecture/dataflow,  refactor with context, maybe?
 
 ## Plan
 ### ✅1. Detect cursor, word, pattern
@@ -123,7 +127,7 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 
 
 - **Additional stuff, priority**
-     - 1. debounce
+     ✅ 1. debounce
      - 3. keyboard navigation in slectable list
      - 2. chars remaining
      - 4. Make it perty

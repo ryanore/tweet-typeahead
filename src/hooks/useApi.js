@@ -21,6 +21,11 @@ export const useApiGet = (url) => {
           setState({ data: json, loading: false })
         })
     }
+    else {
+      console.log('NO URL');
+      
+      setState({data: null, loading: false})
+    }
   }, [url])
 
   return state
