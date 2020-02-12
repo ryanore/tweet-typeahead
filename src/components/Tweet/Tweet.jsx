@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TweetInput from '../TweetInput/TweetInput'
 
 const Tweet = () => {
-  const [searchData, setSearchData] = useState(null)
+  const [searchData, setSearchData] = useState('this is search data')
   const [searchUrl, setSearchUrl] = useState(null)
   const [tweet, setTweet] = useState(null)
 

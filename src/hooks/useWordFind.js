@@ -9,7 +9,7 @@ import {useState, useEffect} from 'react'
 
 const useWordFind = (input) => {
   const [cursor, setCursor] = useState(input.length || 0)
-  const [bounds, setBounds] = useState(null)
+  const [bounds, setBounds] = useState({start: 0, end: 0})
   
   useEffect(() => {
     if (input) {
