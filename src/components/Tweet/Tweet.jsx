@@ -18,7 +18,6 @@ const Tweet = () => {
     setSearchUrl(baseSearchUrl + str)
   }
 
-
   useEffect(() => {
     if (data) {
       console.log('data is ', data)

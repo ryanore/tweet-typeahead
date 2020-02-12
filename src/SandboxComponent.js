@@ -11,4 +11,4 @@ const SandboxComponent = () => {
 
 }
 
-export default SandboxComponent;
+export default SandboxComponent

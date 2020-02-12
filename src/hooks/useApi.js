@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 /**
  * Hook - useApiGet
@@ -8,20 +8,20 @@ import { useEffect, useState } from "react";
  * Debouncing takes place in the component level
  */
 export const useApiGet = (url) => {
-  const [state, setState] = useState({ data: null, loading: false });
+  const [state, setState] = useState({ data: null, loading: false })
   
   useEffect(() => {
     if (url) {
-      setState(state => ({ data: state.data, loading: true }));
+      setState(state => ({ data: state.data, loading: true }))
       fetch(url)
         .then((data) => {
             return data.json()
         })
         .then((json) => {
-          setState({ data: json, loading: false });
-        });
+          setState({ data: json, loading: false })
+        })
     }
-  }, [url]);
+  }, [url])
 
-  return state;
-};
+  return state
+}

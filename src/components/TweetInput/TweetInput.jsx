@@ -1,26 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import useWordFind from '../../hooks/useWordFind'
+import useDebounce from '../../hooks/useDebounce'
 import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
 
 const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
   const [input, setInput] = useState('')
+  const [word, setWord] = useState(null)
+  const handle = useDebounce(findUserHandle(word), 300)
   const {bounds, onCursor, attrs} = useWordFind(input)
   
-  // if word qualifies as a twitter handle, set handle state
   useEffect(() => {
-    if (bounds) {      
-      const word = input.slice(bounds.start, bounds.end)      
-      const handle = findUserHandle(word)
-
-      if (handle) {
-        onSearch(handle)
-      }
+    if (bounds) { 
+      setWord(input.slice(bounds.start, bounds.end) )
     }
   }, [bounds])
 
+  useEffect(() => {
+    if (handle) {
+      onSearch(handle)
+    }
+  }, [handle])
 
-  // replace text with whatever was passed in as a prop
   useEffect(() => {
     if (replaceText) {
       const newStr = replaceAt(input, replaceText, bounds.start, bounds.end)
@@ -45,9 +46,6 @@ const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
         {...attrs}
         onChange = {onChange}
       />
-      <button onClick={() => {
-        onSearch('farts')
-      }}>search</button>
     </div>
   )
 }
@@ -62,4 +60,4 @@ TweetInput.defaultProps = {
   placeholder: 'What\'s Happening?'
 }
 
-export default TweetInput;
+export default TweetInput

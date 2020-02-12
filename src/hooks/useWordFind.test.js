@@ -1,4 +1,4 @@
-import useWordFind from "./useWordFind";
+import useWordFind from "./useWordFind"
 import { renderHook, act } from '@testing-library/react-hooks'
 
 // 165 chars
