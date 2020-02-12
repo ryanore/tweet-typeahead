@@ -6,6 +6,7 @@ import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/str
 const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
   const [input, setInput] = useState('')
   const {bounds, onCursor, attrs} = useWordFind(input)
+  
   // if word qualifies as a twitter handle, set handle state
   useEffect(() => {
     if (bounds) {      
@@ -13,12 +14,11 @@ const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
       const handle = findUserHandle(word)
 
       if (handle) {
-        console.log('ON HANDLE !!!!!!!!!!', handle);
-        
         onSearch(handle)
       }
     }
   }, [bounds])
+
 
   // replace text with whatever was passed in as a prop
   useEffect(() => {
