@@ -15,13 +15,14 @@ const Tweet = () => {
   }
 
   const onSearch = (str) => {
-    setSearchUrl(`${baseSearchUrl}str`)
+    setSearchUrl(baseSearchUrl + str)
   }
+
 
   useEffect(() => {
     if (data) {
       console.log('data is ', data)
-      setReplaceString(data.users[0].screen_name)
+      setReplaceString(`@${data.users[0].screen_name}`)
     }
   }, [data])
 
@@ -29,6 +30,7 @@ const Tweet = () => {
   return (
     <div data-testid="tweet">
       {loading && <div>loading ... </div> }
+
       <div>
         <TweetInput 
           onSearch={onSearch}
@@ -37,6 +39,7 @@ const Tweet = () => {
         />
         <hr />
         <p>{tweet}</p>
+        <p>{searchUrl}</p>
       </div>
     </div>
   )
