@@ -15,21 +15,20 @@ const Tweet = () => {
   }
 
   const onSearch = (str) => {
-    console.log('search ', str);
-    console.log(baseSearchUrl);
     setSearchUrl(`${baseSearchUrl}str`)
   }
 
   useEffect(() => {
     if (data) {
       console.log('data is ', data)
-      setReplaceString('@fakeName')
+      setReplaceString(data.users[0].screen_name)
     }
   }, [data])
 
 
   return (
     <div data-testid="tweet">
+      {loading && <div>loading ... </div> }
       <div>
         <TweetInput 
           onSearch={onSearch}

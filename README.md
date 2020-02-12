@@ -77,9 +77,14 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 - ✅Shell components with basic unit tests
 
 ### 3. Make basic api request/response
-- Get API functioning
-- Get props passing along
+- ✅ Get API functioning
+- ✅ Get props passing along
 - Basic unit test stubbing
+
+### 4. Display Users in selectable List thingy
+- display list
+- make clickable items update TweetInput correctly
+- tests for Selectable List
 
 #### Components
 - ```<Tweet>``` 
