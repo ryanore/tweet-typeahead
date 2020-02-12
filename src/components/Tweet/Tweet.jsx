@@ -28,6 +28,9 @@ const Tweet = ({placeholder = "What's Happening"}) => {
       if (handle) {
         setSearchUrl(baseSearchUrl + str)
       }
+      else {
+        setSearchUrl(null)
+      }
     }
   }, [bounds])
 

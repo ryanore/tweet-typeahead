@@ -1,10 +1,7 @@
 import {useState, useEffect} from 'react'
 /**
- * Using the cursor position and the full text,
- *  find the start & end position of whatever word
- *  the users' cursor is currently on.
- *
- * (naming things is hard)
+ * useWordFind  (naming things is hard)
+ * Get the start/end index of whatever word the cursor is on
  */
 
 const useWordFind = (input) => {
@@ -45,9 +42,8 @@ const useWordFind = (input) => {
   }
 
   /*
-   * Well this was a weird one
-   * This became necessary because replacing the text triggered another "search" because the 
-   * cursor position didn't move to the end
+   * setCursorPosition
+   * Manually set the position, (Workaround)
    */
   const setCursorPosition = (num) => {
     const newPosition = num || 1000
