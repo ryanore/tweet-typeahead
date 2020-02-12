@@ -44,10 +44,21 @@ const useWordFind = (input) => {
     }    
   }
 
+  /*
+   * Well this was a weird one
+   * This became necessary because replacing the text triggered another "search" because the 
+   * cursor position didn't move to the end
+   */
+  const setCursorPosition = (num) => {
+    const newPosition = num || 1000
+    setCursor(num)
+  }
+
   return {
     bounds,
     onCursor,
-    attrs: {
+    setCursor: setCursorPosition,
+    events: {
       onKeyUp: onKeyUp,
       onClick: onCursor,
       onChange: onCursor

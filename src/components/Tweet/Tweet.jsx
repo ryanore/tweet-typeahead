@@ -1,42 +1,47 @@
 import React, { useEffect, useState } from 'react'
-import TweetInput from '../TweetInput/TweetInput'
 import SelectList from '../SelectList/SelectList'
 import SelectListUser from '../SelectListUser/SelectListUser'
 import { useApiGet } from '../../hooks/useApi'
+import useWordFind from '../../hooks/useWordFind'
+// import useDebounce from '../../hooks/useDebounce'
+import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
+
 const baseSearchUrl = 'http://localhost:4000/twitter/user/search?username='
 
-const Tweet = () => {
+const Tweet = ({placeholder = "What's Happening"}) => {
+  const [input, setInput] = useState('')
   const [searchUrl, setSearchUrl] = useState(null)
-  const [tweet, setTweet] = useState(null)
-  const [replaceString, setReplaceString] = useState(null)
-  const { data, loading } = useApiGet(searchUrl)
-
-  useEffect(() => {
-    if (data && data.users) {
-      // console.log('data is ', data)
-      // setReplaceString(`@${data.users[0].screen_name}`)
-    }
-  }, [data])
-
-  const onTweetUpdate = (str) => {
-    setTweet(str)
-  }
-
-  const onSearch = (str) => {
-    setSearchUrl(baseSearchUrl + str)
-  }
+  const {data, loading, setData} = useApiGet(searchUrl)
+  const {bounds, onCursor, setCursor, events} = useWordFind(input)
 
   const onSelectItem = (data) => {
-    setReplaceString(`@${data.screen_name} `)
+    const newStr = replaceAt(input, `@${data.screen_name} `, bounds.start, bounds.end)
+    setInput(newStr)
+    setCursor(1000)
+    setSearchUrl(null)
   }
 
+  useEffect(() => {
+    if (bounds) { 
+      const str = input.slice(bounds.start, bounds.end)
+      const handle = findUserHandle(str)
+      if (handle) {
+        setSearchUrl(baseSearchUrl + str)
+      }
+    }
+  }, [bounds])
+
+  const onChange = (e) => {
+    setInput(e.target.value)
+    onCursor(e)
+  }
 
   return (
     <div data-testid="tweet">
-      <TweetInput 
-        onSearch={onSearch}
-        onTweetUpdate={onTweetUpdate}
-        replaceText={replaceString}
+      <textarea value={input}
+        placeholder={placeholder}
+        {...events}
+        onChange = {onChange}
       />
       {data && data.users &&
         // Compose children for flexibility (i.e. #hashtags)

@@ -4,61 +4,58 @@ import useWordFind from '../../hooks/useWordFind'
 import useDebounce from '../../hooks/useDebounce'
 import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
 
-const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate}) => {
+const TweetInput = ({placeholder, replaceText, onSearch, onTweetUpdate, onParent}) => {
   const [input, setInput] = useState('')
   const [word, setWord] = useState(null)
-  const handle = useDebounce(findUserHandle(word), 300)
-  const {bounds, onCursor, attrs} = useWordFind(input)
+  // const handle = useDebounce(findUserHandle(word), 300)
+  const {bounds, onCursor, events} = useWordFind(input)
   
   useEffect(() => {
     if (bounds) { 
-      console.log('bounds changed ', bounds);
       setWord(input.slice(bounds.start, bounds.end) )
     }
   }, [bounds])
 
   useEffect(() => {
-    if (handle) {
-      console.log('handleChanged-', handle);
-      
-      onSearch(handle)
-      setWord(null)
+    if (word) {
+      const handle = findUserHandle(word)
+      if (handle) {
+        console.log('handle', handle);
+        onSearch(handle)
+      }
     }
-  }, [handle])
+  }, [word])
 
   useEffect(() => {
     if (replaceText) {
-      console.log('replaceText-', replaceText);
-      
       const newStr = replaceAt(input, replaceText, bounds.start, bounds.end)
       setInput(newStr)
-      onCursor({
-        target: {
-          selectionStart: input.length
-        }
-      })
+      setWord(null)
     }
   }, [replaceText])
 
   useEffect(() => {
-    // onTweetUpdate(input)    
+    onTweetUpdate(input)    
   }, [input])
 
 
   const onChange = (e) => {
-    console.log('onchange-', e.target.value);
-    
     setInput(e.target.value)
     onCursor(e)
+    console.log(bounds, e.target.selectionStart);
+    
   }
 
   return (
     <div>
       <textarea value={input}
         placeholder={placeholder}
-        {...attrs}
+        {...events}
         onChange = {onChange}
       />
+      <button onClick={() => {
+        onParent('@lobster')}
+      }>click</button>
     </div>
   )
 }

@@ -20,13 +20,26 @@ export const useApiGet = (url) => {
         .then((json) => {
           setState({ data: json, loading: false })
         })
-    }
-    else {
-      console.log('NO URL');
-      
-      setState({data: null, loading: false})
+        .catch((e) => {
+          setState({ data: null, loading: false, error: e })
+        })
+    } else {
+      setState({
+        loading: false,
+        error: null,
+        data: null
+      })
     }
   }, [url])
 
-  return state
+  return {
+    ...state,
+    setData: (obj) => {
+      console.log('Set data to ', obj)
+      return setState({
+        loading: false,
+        data: obj
+      }) 
+    }
+  }
 }
