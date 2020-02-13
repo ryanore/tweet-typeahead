@@ -3,7 +3,6 @@ import SelectList from '../SelectList/SelectList'
 import SelectListUser from '../SelectListUser/SelectListUser'
 import { useApiGet } from '../../hooks/useApi'
 import useWordFind from '../../hooks/useWordFind'
-// import useDebounce from '../../hooks/useDebounce'
 import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
 
 const baseSearchUrl = 'http://localhost:4000/twitter/user/search?username='
@@ -24,13 +23,9 @@ const Tweet = ({placeholder = "What's Happening"}) => {
   useEffect(() => {
     if (bounds) { 
       const str = input.slice(bounds.start, bounds.end)
-      const handle = findUserHandle(str)
-      if (handle) {
-        setSearchUrl(baseSearchUrl + str)
-      }
-      else {
-        setSearchUrl(null)
-      }
+      const handle = findUserHandle(str, 2)
+      const url = handle ? (baseSearchUrl + str) : null
+      setSearchUrl(url)
     }
   }, [bounds])
 
@@ -49,7 +44,7 @@ const Tweet = ({placeholder = "What's Happening"}) => {
       {data && data.users &&
         // Compose children for flexibility (i.e. #hashtags)
         <SelectList data={data.users} loading={loading} onSelect={onSelectItem}>
-          <SelectListUser />
+          <SelectListUser data-testid={'select-list-user'} />
         </SelectList>
       }
     </div>

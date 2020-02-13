@@ -6,8 +6,8 @@ describe('String Utilities', () => {
 
     describe('fails correctly', () => {
       it('with less than 3 chars', () => {
+        expect(findUserHandle('@')).toBeFalsy()
         expect(findUserHandle('@r')).toBeFalsy()
-        expect(findUserHandle('@ry')).toBeFalsy()
       })
       it('with more than 16 chars', () => {
         expect(findUserHandle('@sixteencharstrng')).toBeFalsy()

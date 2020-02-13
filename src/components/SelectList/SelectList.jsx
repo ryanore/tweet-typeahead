@@ -28,7 +28,7 @@ const SelectList = ({children, data, onSelect, loading}) => {
   }, [data, enterPress])
   
   return (
-    <div>
+    <div data-testid={'select-list'}>
       {loading && (
         <div className={styles.loading} >
           "loading ... "
