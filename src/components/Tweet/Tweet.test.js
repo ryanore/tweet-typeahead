@@ -38,22 +38,6 @@ describe('<Tweet> Component',() => {
     })
   })
 
-  describe('When max exceeded characters reached', () => {
-    const hugeString = 'a'.repeat(300)
-    
-    it('disables the input', () => {
-        const { input } = setup({maxChars:280})
-        fireEvent.change(input, { target: { value: hugeString } })
-        expect(input.disabled).toBe(true)
-    })
-    
-    it('disables the input', () => {
-        const { input } = setup({maxChars:400})
-        fireEvent.change(input, { target: { value: hugeString } })
-        expect(input.disabled).toBe(false)
-    })
-  })
-
 
   describe('Cursor position, username detection, API requests', () => {
     // Mock fetch globally  

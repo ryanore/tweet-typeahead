@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from 'react'
 import Avatar from '../Avatar/Avatar'
 import SelectList from '../SelectList/SelectList'
 import SelectListUser from '../SelectListUser/SelectListUser'
+import PercentCircle from '../PercentCircle/PercentCircle'
 import { useApiGet } from '../../hooks/useApi'
 import useWordFind from '../../hooks/useWordFind'
 import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
@@ -14,7 +15,7 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
   const [searchUrl, setSearchUrl] = useState(null)
   const {data, loading} = useApiGet(searchUrl)
   const {bounds, onCursor, setCursor, events} = useWordFind(input)
-  const {remaining, exceeded} = useMaxChar(input, maxChars)
+  const {remaining, percent, exceeded} = useMaxChar(input, maxChars)
   const txtRef = useRef(null)
   
   const onSelectItem = (data) => {
@@ -50,20 +51,17 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
         <div className={styles.tweetInput}>
           <div className={styles.tweetText}>
             <textarea 
+              className={exceeded ? styles.maxed : null }
               ref={txtRef}
               value={input}
               placeholder={placeholder}
               {...events}
               onChange = {onChange}
-              disabled={exceeded}
             />
           </div>
           <div className={styles.tweetFooter}>
             <div className={styles.charCounter}>
-              {!exceeded
-              ? <span>Remaining: {remaining}</span>
-              : <span>Max Character Limit!</span>
-              }
+              <PercentCircle percent={percent} />
             </div>
             <div className={styles.submitCont}>
               <button onClick={()=>{console.log('tweet!', input)}} >Tweet</button>

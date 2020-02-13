@@ -14,8 +14,12 @@ const useMaxChar = (input, max=280) => {
   }
 
   useEffect(() => {
-    if (input && typeof input === 'string') {
-      setState({remaining: max - input.length, exceeded: input.length >= max })
+    if ( typeof input === 'string') {
+      setState({
+        remaining: max - input.length, 
+        percent: 100 * (input.length/max),
+        exceeded: input.length >= max
+      })
     }      
   }, [input])
   
