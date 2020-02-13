@@ -1,3 +1,50 @@
 .Tweet {
+  display: flex;
+  flex-direction: row;
+  padding: .5em;
+  min-height: 15em;
+  position: relative;
+}
 
+textarea {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  border: none;
+  box-sizing: border-box;
+  padding: .5em;
+  font-size: 1.3em;
+ }
+ textarea:focus {
+   border: none;
+   outline: none;
+ }
+
+.avatarCont {
+  max-width: 50px;
+  flex: auto;
+  position: relative;
+}
+
+.tweetInputCont {
+  flex: 1;
+}
+
+.tweetInput {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.tweetText {
+  flex: 1 0 auto;
+}
+
+.tweetFooter {
+  display: flex;
+  flex-direction: row;
+}
+
+.charCounter {
+  flex: 1;
 }

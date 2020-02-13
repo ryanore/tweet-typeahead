@@ -5,12 +5,11 @@ import { useApiGet } from '../../hooks/useApi'
 import useWordFind from '../../hooks/useWordFind'
 import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
 import useMaxChar from '../../hooks/useMaxChar'
-
 import styles from './Tweet.module.css'
 
 const baseSearchUrl = 'http://localhost:4000/twitter/user/search?username='
 
-const Tweet = ({placeholder = "What's Happening", maxChars=20}) => {
+const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
   const [input, setInput] = useState('')
   const [searchUrl, setSearchUrl] = useState(null)
   const {data, loading} = useApiGet(searchUrl)
@@ -40,6 +39,7 @@ const Tweet = ({placeholder = "What's Happening", maxChars=20}) => {
   
   return (
     <div  data-testid="tweet" className={styles.tweetInput}>
+     
       <div className={styles.tweetText}>
         <textarea value={input}
           placeholder={placeholder}
