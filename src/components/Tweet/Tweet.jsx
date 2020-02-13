@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useRef, useEffect, useState } from 'react'
 import Avatar from '../Avatar/Avatar'
 import SelectList from '../SelectList/SelectList'
 import SelectListUser from '../SelectListUser/SelectListUser'
@@ -7,8 +7,7 @@ import useWordFind from '../../hooks/useWordFind'
 import { replaceAt, findUserHandle /* findHashTag 😄*/ } from '../../utils/string'
 import useMaxChar from '../../hooks/useMaxChar'
 import styles from './Tweet.module.css'
-
-const baseSearchUrl = 'http://localhost:4000/twitter/user/search?username='
+import { userSearchUrl } from '../../config/urls'
 
 const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
   const [input, setInput] = useState('')
@@ -16,19 +15,21 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
   const {data, loading} = useApiGet(searchUrl)
   const {bounds, onCursor, setCursor, events} = useWordFind(input)
   const {remaining, exceeded} = useMaxChar(input, maxChars)
-
+  const txtRef = useRef(null)
+  
   const onSelectItem = (data) => {
     const newStr = replaceAt(input, `@${data.screen_name} `, bounds.start, bounds.end)
     setInput(newStr)
     setCursor(1000)
     setSearchUrl(null)
+    txtRef.current.focus();
   }
 
   useEffect(() => {
     if (bounds) { 
       const str = input.slice(bounds.start, bounds.end)
       const handle = findUserHandle(str, 2)
-      const url = handle ? (baseSearchUrl + str) : null
+      const url = handle ? (userSearchUrl + str) : null
       setSearchUrl(url)
     }
   }, [bounds])
@@ -48,10 +49,13 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
       <div className={styles.tweetInputCont}>
         <div className={styles.tweetInput}>
           <div className={styles.tweetText}>
-            <textarea value={input}
+            <textarea 
+              ref={txtRef}
+              value={input}
               placeholder={placeholder}
               {...events}
               onChange = {onChange}
+              disabled={exceeded}
             />
           </div>
           <div className={styles.tweetFooter}>

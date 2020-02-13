@@ -24,8 +24,6 @@ const setup = (propArgs, re) => {
 describe('<Tweet> Component',() => {
 
   describe('On initial render', () => {
-    afterEach(cleanup)
-
     it('renders the correct placeholder', () => {
       const { input } = setup({placeholder: 'boop'})
       expect(input).toBeInTheDocument()
@@ -33,14 +31,29 @@ describe('<Tweet> Component',() => {
   })
 
   describe('OnChange', () => {
-    afterEach(cleanup)
-
     it('displays input correctly when user types', () => {
         const { input } = setup()
         fireEvent.change(input, { target: { value: strWithHandle } })
         expect(input.value).toBe(strWithHandle)
     })
   })
+
+  describe('When max exceeded characters reached', () => {
+    const hugeString = 'a'.repeat(300)
+    
+    it('disables the input', () => {
+        const { input } = setup({maxChars:280})
+        fireEvent.change(input, { target: { value: hugeString } })
+        expect(input.disabled).toBe(true)
+    })
+    
+    it('disables the input', () => {
+        const { input } = setup({maxChars:400})
+        fireEvent.change(input, { target: { value: hugeString } })
+        expect(input.disabled).toBe(false)
+    })
+  })
+
 
   describe('Cursor position, username detection, API requests', () => {
     // Mock fetch globally  
