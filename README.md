@@ -63,10 +63,6 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 - Add unit tests
 
 
-## TODO
-- figure out unit testing the async for dbounce (jest/testing-library?)
-- rethink architecture/dataflow,  refactor with context, maybe?
-
 ## Plan
 ### ✅1. Detect cursor, word, pattern
 - ✅Use a textarea
@@ -83,12 +79,12 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 ### 3. Make basic api request/response
 - ✅ Get API functioning
 - ✅ Get props passing along
-- Basic unit test stubbing
+- ✅ Basic unit test stubbing
 
 ### 4. Display Users in selectable List thingy
-- display list
-- make clickable items update TweetInput correctly
-- tests for Selectable List
+- ✅ display list
+- ✅ make clickable items update TweetInput correctly
+- ✅ tests for Selectable List
 
 #### Components
 - ```<Tweet>``` 
@@ -127,7 +123,9 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 
 
 - **Additional stuff, priority**
-     ✅ 1. debounce
-     - 3. keyboard navigation in slectable list
-     - 2. chars remaining
+     - 1. debounce
+     ✅ 3. keyboard navigation in slectable list
+     ✅ 2. chars remaining
      - 4. Make it perty
+
+<img src="./twitter-screenshot.png" />

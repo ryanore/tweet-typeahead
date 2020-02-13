@@ -1,16 +1,21 @@
 .selectListItem {
   display: flex;
   flex-direction: row;
+  position: relative;
   border-bottom: 1px solid rgb(230, 236, 240);
-  padding: .5em;
+  padding: 5px;
   cursor: pointer;
+  line-height: 1.5em ;
 }
-.selectListItem:hover {
+.selectListItem:hover,
+.selectListItem:focus {
   background: rgb(245, 248, 250);
+  outline: none;
 }
 
 .Avatar {
-  flex: 1;
+  padding: 5px;
+  width: 35px;
 }
 
 .userDetails {

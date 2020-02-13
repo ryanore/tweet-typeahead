@@ -2,14 +2,17 @@ import React from 'react'
 import { render, fireEvent, cleanup } from '@testing-library/react'
 import Avatar from './Avatar'
 
-const defaults = {}
+const defaults = {
+  alt: 'test',
+  image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='
+}
 
 const setup = (propArgs, re) => {
   const props = {...defaults, ...propArgs}
   const utils = render(
     <Avatar {...props} />
   )
-  const avatar = utils.getByRole('img')
+  const avatar = utils.getByAltText(props.alt)
   return {
     avatar,
     ...utils,
@@ -17,19 +20,19 @@ const setup = (propArgs, re) => {
 }
 
 describe('Avatar Component',() => {
+  afterEach(cleanup)
+
   it('renders', () => {
     const { avatar } = setup()
     expect(avatar).toBeInTheDocument()
   })
-  it('renders a default background image', () => {
-    const { avatar } = setup()
-    const styles = window.getComputedStyle(avatar);
-    expect(styles._values['background-image']).toBeTruthy()
+  it('renders an img', () => {
+    const { avatar } = setup({alt: "tstImg"})
+    expect(avatar.src).toEqual(defaults.image)
   })
   it('renders an image url from props', () => {
-    const { avatar } = setup({image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='})
-    const styles = window.getComputedStyle(avatar);
-    expect(styles._values['background-image']).toBeTruthy()
+    const { avatar, getByAltText } = setup({alt: "tstImg"})
+    expect(getByAltText('tstImg')).toBeTruthy()
   })
 
 })

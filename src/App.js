@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
+import styles from './App.css';
 import Tweet from './components/Tweet/Tweet'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Tweet />
+        <nav />
+        <article>
+          <Tweet />
+        </article>
+        <aside />
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import Avatar from '../Avatar/Avatar'
 import SelectList from '../SelectList/SelectList'
 import SelectListUser from '../SelectListUser/SelectListUser'
 import { useApiGet } from '../../hooks/useApi'
@@ -38,36 +39,40 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
   }
   
   return (
-    <div  data-testid="tweet" className={styles.tweetInput}>
-     
-      <div className={styles.tweetText}>
-        <textarea value={input}
-          placeholder={placeholder}
-          {...events}
-          onChange = {onChange}
-        />
+    <div  data-testid="tweet" className={styles.Tweet}>
+      
+      <div className={styles.avatarCont}>
+        <Avatar />
       </div>
-
-      {data && data.users &&
-        // Compose children for flexibility (i.e. #hashtags)
-        <SelectList data={data.users} loading={loading} onSelect={onSelectItem}>
-          <SelectListUser />
-        </SelectList>
-      }
-
-      <div className={styles.tweetFooter}>
-        <div className={styles.charCounter}>
-          {!exceeded
-          ? <span>Remaining: {remaining}</span>
-          : <span>Max Character Limit!</span>
-          }
+      
+      <div className={styles.tweetInputCont}>
+        <div className={styles.tweetInput}>
+          <div className={styles.tweetText}>
+            <textarea value={input}
+              placeholder={placeholder}
+              {...events}
+              onChange = {onChange}
+            />
+          </div>
+          <div className={styles.tweetFooter}>
+            <div className={styles.charCounter}>
+              {!exceeded
+              ? <span>Remaining: {remaining}</span>
+              : <span>Max Character Limit!</span>
+              }
+            </div>
+            <div className={styles.submitCont}>
+              <button onClick={()=>{console.log('tweet!', input)}} >Tweet</button>
+            </div>
+          </div>
         </div>
-
-        <div className={styles.submitCont}>
-          <button onClick={()=>{console.log('tweet!', input)}} >Submit</button>
-        </div>
-
       </div>
+        {data && data.users &&
+          // Compose children for flexibility (i.e. #hashtags)
+          <SelectList data={data.users} loading={loading} onSelect={onSelectItem}>
+            <SelectListUser />
+          </SelectList>
+        }
     </div>
   )
 }

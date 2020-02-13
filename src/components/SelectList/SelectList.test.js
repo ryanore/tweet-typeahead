@@ -7,13 +7,13 @@ import SelectListUser from '../SelectListUser/SelectListUser'
 const defaults = {
   data: [{
     id: 862682,
-    name: 'Ryan one',
-    screen_name: 'ryan',
+    name: 'dude one',
+    screen_name: 'dude',
     url: 'https://t.co/m58hlXSrUw'
   },{
     id: 862682,
-    name: 'Ryan two',
-    screen_name: 'ryanwo',
+    name: 'dude two',
+    screen_name: 's',
     url: 'https://t.co/m58hlXasdf'
   }],
   onSelect: () => {/*noop*/},

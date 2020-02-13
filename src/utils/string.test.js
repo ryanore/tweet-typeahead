@@ -13,19 +13,19 @@ describe('String Utilities', () => {
         expect(findUserHandle('@sixteencharstrng')).toBeFalsy()
       })
       it('without initial @ symbol', () => {
-        expect(findUserHandle('r@yanore')).toBeFalsy()
+        expect(findUserHandle('a@dude')).toBeFalsy()
       })
     })
 
     describe('succeeds correctly', () => {
       it('with more than 3 chars', () => {
-        expect(findUserHandle('@ryan')).toEqual('@ryan')
+        expect(findUserHandle('@dude')).toEqual('@dude')
       })
       it('with less than 16 chars', () => {
         expect(findUserHandle('@fifteencharstrg')).toEqual('@fifteencharstrg')
       })
       it('with initial @ symbol', () => {
-        expect(findUserHandle('@ryanore')).toEqual('@ryanore')
+        expect(findUserHandle('@dude')).toEqual('@dude')
       })
     })
   })

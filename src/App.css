@@ -1,3 +1,13 @@
-.App > .main {
-  width: 500px;
+
+.App {
+  display: flex;
+  flex: 1;
+  font-size: 15px;
+}
+
+.App > nav, 
+.App > aside {
+    flex: 0 0 25vw;
+    background: #ccc;
+    min-height: 100vh;
 }
