@@ -47,7 +47,7 @@ const useWordFind = (input) => {
    */
   const setCursorPosition = (num) => {
     const newPosition = num || 1000
-    setCursor(num)
+    setCursor(newPosition)
   }
 
   return {

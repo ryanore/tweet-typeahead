@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Avatar from '../Avatar/Avatar'
 import styles from './SelectListUser.module.css'
 
@@ -8,14 +9,14 @@ const SelectListUser = ({data, onClick, focused}) => {
   if (focused) {
     classes.push(styles.withFocus)
   }
-
+  
   return (
     data && (
-    <li onClick={onClick} className={classes.join(' ')}>
+    <li data-testid={"select-list-user"} onClick={onClick} className={classes.join(' ')}>
       <Avatar
         className={styles.Avatar}
         alt={data.id}
-        url={data.profile_image_url} 
+        image={data.profile_image_url} 
       />
       <div
         className={styles.userDetails}>
@@ -29,4 +30,17 @@ const SelectListUser = ({data, onClick, focused}) => {
     )
   )
 }
+
+
+
+SelectListUser.propTypes = {
+  data: PropTypes.object,
+  onClick: PropTypes.func,
+  focused: PropTypes.bool
+}
+
+SelectListUser.defaultProps = {
+  focused: false
+}
+
 export default SelectListUser

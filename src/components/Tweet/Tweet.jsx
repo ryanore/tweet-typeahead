@@ -10,7 +10,7 @@ const baseSearchUrl = 'http://localhost:4000/twitter/user/search?username='
 const Tweet = ({placeholder = "What's Happening"}) => {
   const [input, setInput] = useState('')
   const [searchUrl, setSearchUrl] = useState(null)
-  const {data, loading, setData} = useApiGet(searchUrl)
+  const {data, loading} = useApiGet(searchUrl)
   const {bounds, onCursor, setCursor, events} = useWordFind(input)
 
   const onSelectItem = (data) => {
@@ -44,7 +44,7 @@ const Tweet = ({placeholder = "What's Happening"}) => {
       {data && data.users &&
         // Compose children for flexibility (i.e. #hashtags)
         <SelectList data={data.users} loading={loading} onSelect={onSelectItem}>
-          <SelectListUser data-testid={'select-list-user'} />
+          <SelectListUser />
         </SelectList>
       }
     </div>

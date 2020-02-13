@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import styles from './SelectList.module.css'
-// import SelectListUser from '../SelectListUser/SelectListUser'
 import useKeyPress from '../../hooks/useKeypress'
 
 const SelectList = ({children, data, onSelect, loading}) => {
@@ -30,13 +30,13 @@ const SelectList = ({children, data, onSelect, loading}) => {
   return (
     <div data-testid={'select-list'}>
       {loading && (
-        <div className={styles.loading} >
+        <div data-testid={"loading"} className={styles.loading} >
           "loading ... "
         </div>
       )}
 
       {data && (
-        <div className={styles.selectList}>
+        <div data-testid="select-list-items" className={styles.selectList}>
 
           {data.map((item, i) => (
             React.Children.map(children, (child => React.cloneElement(child, {
@@ -46,21 +46,22 @@ const SelectList = ({children, data, onSelect, loading}) => {
               onClick: () => { onSelect(item) }
             })))
           ))}
-
-          {/* {data.map((item, i) => (
-            <SelectListUser
-              key={item.id} 
-              data={item}
-              focused={focus === i}
-              onClick={() => {
-                onSelect(item)
-              }}
-            />
-          ))} */}
-
         </div>
       )}
     </div>
   )
 }
+
+
+SelectList.propTypes = {
+  children: PropTypes.element.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  data: PropTypes.array
+}
+
+SelectList.defaultProps = {
+  loading: false
+}
+
 export default SelectList

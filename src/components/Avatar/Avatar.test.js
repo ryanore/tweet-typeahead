@@ -1,21 +1,35 @@
 import React from 'react'
 import { render, fireEvent, cleanup } from '@testing-library/react'
-import TweetInput from './TweetInput'
+import Avatar from './Avatar'
 
-describe('Button Component',() => {
-    let noop
+const defaults = {}
 
-    beforeEach(() => {
-        noop = jest.fn();
-    });
+const setup = (propArgs, re) => {
+  const props = {...defaults, ...propArgs}
+  const utils = render(
+    <Avatar {...props} />
+  )
+  const avatar = utils.getByRole('img')
+  return {
+    avatar,
+    ...utils,
+  }
+}
 
-    afterEach(() => {
-        cleanup()
-    })
-
-    it('renders correctly', () => {
-        const {getByPlaceholder} = render(<TweetInput placeholder="boop" onUsername={noop}/>)
-        expect(getByPlaceholder('boop')).toBeInTheDocument()
-    })
+describe('Avatar Component',() => {
+  it('renders', () => {
+    const { avatar } = setup()
+    expect(avatar).toBeInTheDocument()
+  })
+  it('renders a default background image', () => {
+    const { avatar } = setup()
+    const styles = window.getComputedStyle(avatar);
+    expect(styles._values['background-image']).toBeTruthy()
+  })
+  it('renders an image url from props', () => {
+    const { avatar } = setup({image: 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs='})
+    const styles = window.getComputedStyle(avatar);
+    expect(styles._values['background-image']).toBeTruthy()
+  })
 
 })
