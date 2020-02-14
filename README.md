@@ -42,14 +42,11 @@
 
 ## My thoughts ( In Retrospect )
 **First off, Thank you!**
-I really do appreciate the opportunity, and you can see by my effort that I'm really excited at the chance to join Sprout Social.
+I really do appreciate the opportunity, and you can see by my effort that I'm really excited at the chance to join Sprout Social.  I actually had a lot of fun working with hooks, which I had not before.
 
-This was a really fun!  I've never used `Hooks` or `react-testing-library`, but have been meaning to, so I decided to dive in.
+**state**:  In hindsight, I very much regret not using a state management system.  Redux is my goto, but I think using a combination of  `useContext` and a `useReducer` would suffice and make things far easier to reason about.  There is only one or two workarounds that really stick out to me, but I could see needing to refactor this pretty quickly.  I think it would only take a day.
 
-
-**state**:  In hindsight, I found the state complicated enough that I would really have loved to have used some actual state management.  *If I were going to approch this again*, I might actually do just that. Redux is my goto, but I think using a combination of  `useContext` and a `useReducer` would suffice and be another thing to try out.
-
-**styles**:   In terms of css, I was not very methodical and if I had more time, I would have been.  I kind of just "got the job done" on this one.
+**styles**:   In terms of css,  I kind of just "got the job done" on this one.  I was not very methodical and if I had more time, I would have been. 
 
 **a11y**:  I'm bummed about not getting to the a11y attributes. If this were an actual product feature I would have made this a top priority and part of normal workflow, but it's just a blindspot for me.
 

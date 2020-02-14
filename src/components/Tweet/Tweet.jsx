@@ -20,10 +20,15 @@ const defaultProps = {
   placeholder: 'What\'s Happening?'
 }
 
+/**
+ *  Tweet - central component
+ *  - most state & logic is handled with hooks
+ *  - TODO: refactor to use centralized store/actions/reducers
+ */
 const Tweet = ({maxChars, placeholder}) => {
   const [input, setInput] = useState('')
   const [searchUrl, setSearchUrl] = useState(null)
-  const {data, loading} = useApiGet(searchUrl, 200)
+  const {data, loading, cancel} = useApiGet(searchUrl, 200)
   const {bounds, onCursor, setCursor, events} = useWordFind(input)
   const {percent, exceeded} = useMaxChar(input, maxChars)
   
@@ -49,7 +54,6 @@ const Tweet = ({maxChars, placeholder}) => {
   }
 
   const searchData = data && data.users ? data.users : null
-
 
   return (
     <div  data-testid="tweet" className={styles.Tweet}>
@@ -79,7 +83,8 @@ const Tweet = ({maxChars, placeholder}) => {
           </div>
         </div>
       </div>
-      {(loading || searchData ) &&(
+      {(searchUrl && (loading || searchData) ) &&(
+        // These conditions are a symptom of needing state machine (store/reducer)
         <SelectList data={searchData} loading={loading} onSelect={onSelectItem}>
           <SelectListUser />
         </SelectList>
