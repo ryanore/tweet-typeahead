@@ -37,7 +37,6 @@ const SelectList = ({children, data, onSelect, loading}) => {
       onSelect(data[focus])
     }
   }, [data, enterPress])
-  console.log('losfinh@@@ s', loading);
   
   return (
     <div data-testid={'select-list'} className={styles.selectList}>

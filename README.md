@@ -38,29 +38,24 @@
 - To keep the project simple and avoid any unexpected caching, the Service Worker was removed from the project.
 
 
-## Requirements
+<hr />
 
--  ✅When typing a message, the typeahead will search for screen name suggestions after inserting or editing an @ followed by 2 alphanumeric characters (a-z, 0-9) 
-     - ex: @a does nothing, but @ab will start suggestions screen names
+## My thoughts ( In Retrospect )
+**First off, Thank you!**
+I really do appreciate the opportunity, and you can see by my effort that I'm really excited at the chance to join Sprout Social.
 
--  ✅The typeahead should display suggestions for the appropriate mention when updating a message that contains multiple screen names
-     - ex: “Composing a message for @Twitter from @SproutSocial”
+This was a really fun!  I've never used `Hooks` or `react-testing-library`, but have been meaning to, so I decided to dive in.
 
-- ✅The user can update both @Twitter and @SproutSocial
-Screen name suggestions should display in a list. When a user selects a suggested screen name, either by clicking or using a keyboard shortcut, it should replace the screen name in the typeahead.
-     - ex: typing @sproutso then clicking on the suggested screen name @sproutsocial should replace the mention the user was typing with the suggested screen name
 
-## Additional Features
+**state**:  In hindsight, I found the state complicated enough that I would really have loved to have used some actual state management.  *If I were going to approch this again*, I might actually do just that. Redux is my goto, but I think using a combination of  `useContext` and a `useReducer` would suffice and be another thing to try out.
 
-Once you have the requirements for typeahead working, we'd like you to look at these additional considerations. Pick at least one that you feel most comfortable completing. Doing all of them is not required and you may do as many as you like. In your submission, please let us know which additional feature(s) you selected to implement.
+**styles**:   In terms of css, I was not very methodical and if I had more time, I would have been.  I kind of just "got the job done" on this one.
 
-- Prevent duplicate requests by caching responses from the twitter screen name lookup API
-- Debounce the input so that unnecessary requests aren’t being made as the user types a mention
-- ✅Style your submission to match the screenshot provided, Twitter’s styles, or impress us with your own design. (Do not worry about styling the @mention inside of the textarea, though)
-- ✅Keyboard navigation
-- ✅Add a characters remaining counter
-- Improve accessibility of the app with WAI-ARIA attributes
-- ✅Add unit tests
+**a11y**:  I'm bummed about not getting to the a11y attributes. If this were an actual product feature I would have made this a top priority and part of normal workflow, but it's just a blindspot for me.
+
+**design**:  I'm attaching a screenshot of the current Twitter interface because this is what I modeled after.
+
+<hr />
 
 
 <img src="./twitter-screenshot.png" />

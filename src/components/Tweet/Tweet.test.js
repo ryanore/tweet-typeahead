@@ -1,5 +1,5 @@
 import React from 'react'
-import { act, cleanup, fireEvent, render, wait } from '@testing-library/react'
+import { cleanup, fireEvent, render, wait } from '@testing-library/react'
 import Tweet from './Tweet'
 
 const strWithHandle = 'the best is @sproutSocial in @Chicago'
