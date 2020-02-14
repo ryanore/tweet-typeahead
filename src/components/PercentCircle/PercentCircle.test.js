@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { render, fireEvent, cleanup } from '@testing-library/react'
 import PercentCircle from './PercentCircle'
 

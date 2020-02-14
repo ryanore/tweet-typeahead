@@ -3,6 +3,17 @@ import PropTypes from 'prop-types'
 import styles from './SelectList.module.css'
 import useKeyPress from '../../hooks/useKeypress'
 
+const propTypes = {
+  children: PropTypes.element.isRequired,
+  onSelect: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
+  data: PropTypes.array
+}
+const defaultProps = {
+  loading: false,
+  data: null
+}
+
 const SelectList = ({children, data, onSelect, loading}) => {
   const downPress = useKeyPress("ArrowDown");
   const upPress = useKeyPress("ArrowUp");
@@ -11,13 +22,13 @@ const SelectList = ({children, data, onSelect, loading}) => {
 
   useEffect(() => {
     if (data && downPress) {
-      setFocus(prev => (prev < data.length - 1 ? prev + 1 : prev));
+      setFocus(prev => ( prev < data.length - 1 ? prev + 1 : 0))
     }
   }, [data, downPress])
   
   useEffect(() => {
     if (data && upPress) {
-      setFocus(prev => (prev > 0 ? prev - 1 : prev));
+      setFocus(prev => (prev > 0 ? prev - 1 : prev))
     }
   }, [data, upPress])
 
@@ -26,18 +37,17 @@ const SelectList = ({children, data, onSelect, loading}) => {
       onSelect(data[focus])
     }
   }, [data, enterPress])
+  console.log('losfinh@@@ s', loading);
   
   return (
-    <div data-testid={'select-list'}>
-      {loading && (
+    <div data-testid={'select-list'} className={styles.selectList}>
+        {loading && (
         <div data-testid={"loading"} className={styles.loading} >
           "loading ... "
-        </div>
-      )}
+        </div>)}
 
-      {data && (
-        <div data-testid="select-list-items" className={styles.selectList}>
-
+        {data && (
+          <div data-testid="select-list-items" >
           {data.map((item, i) => (
             React.Children.map(children, (child => React.cloneElement(child, {
               key: item.id,
@@ -46,22 +56,13 @@ const SelectList = ({children, data, onSelect, loading}) => {
               onClick: () => { onSelect(item) }
             })))
           ))}
-        </div>
-      )}
+          </div>
+         )}
     </div>
   )
 }
 
-
-SelectList.propTypes = {
-  children: PropTypes.element.isRequired,
-  onSelect: PropTypes.func.isRequired,
-  loading: PropTypes.bool,
-  data: PropTypes.array
-}
-
-SelectList.defaultProps = {
-  loading: false
-}
+SelectList.propTypes = propTypes
+SelectList.defaultProps = defaultProps
 
 export default SelectList

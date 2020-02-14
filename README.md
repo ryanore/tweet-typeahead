@@ -46,7 +46,7 @@
 -  ✅The typeahead should display suggestions for the appropriate mention when updating a message that contains multiple screen names
      - ex: “Composing a message for @Twitter from @SproutSocial”
 
-- The user can update both @Twitter and @SproutSocial
+- ✅The user can update both @Twitter and @SproutSocial
 Screen name suggestions should display in a list. When a user selects a suggested screen name, either by clicking or using a keyboard shortcut, it should replace the screen name in the typeahead.
      - ex: typing @sproutso then clicking on the suggested screen name @sproutsocial should replace the mention the user was typing with the suggested screen name
 
@@ -56,76 +56,11 @@ Once you have the requirements for typeahead working, we'd like you to look at t
 
 - Prevent duplicate requests by caching responses from the twitter screen name lookup API
 - Debounce the input so that unnecessary requests aren’t being made as the user types a mention
-- Style your submission to match the screenshot provided, Twitter’s styles, or impress us with your own design. (Do not worry about styling the @mention inside of the textarea, though)
-- Keyboard navigation
-- Add a characters remaining counter
+- ✅Style your submission to match the screenshot provided, Twitter’s styles, or impress us with your own design. (Do not worry about styling the @mention inside of the textarea, though)
+- ✅Keyboard navigation
+- ✅Add a characters remaining counter
 - Improve accessibility of the app with WAI-ARIA attributes
-- Add unit tests
+- ✅Add unit tests
 
-
-## Plan
-### ✅1. Detect cursor, word, pattern
-- ✅Use a textarea
-- ✅Detect the cursor inside textarea
-- ✅Isolate the word surrounding the cursor
-- ✅Check for the pattern @xx
-- ✅Update state in some way
-- ✅Refactor that into a hook, renderprop, or HOC
-- ✅Refactor the pattern search into separate util
-
-### 2. Set up basic component structure
-- ✅Shell components with basic unit tests
-
-### 3. Make basic api request/response
-- ✅ Get API functioning
-- ✅ Get props passing along
-- ✅ Basic unit test stubbing
-
-### 4. Display Users in selectable List thingy
-- ✅ display list
-- ✅ make clickable items update TweetInput correctly
-- ✅ tests for Selectable List
-
-#### Components
-- ```<Tweet>``` 
-     - props: 
-          - max chars
-          - searchUrl
-     - Container for overall tweet component
-     - Makes API requests on the onDetect callback
-     - Contains UI for Selectable List on API resp
-     - OnSelect, render passing replaceString  
-     - Handle Chars remaining (bonus)
-
-- ```<TweetControls>```
-     - layout UI for buttons and charsremaining
-
-- ```TweetInput```
-     - props: 
-          - replaceString a word to replace
-          - onChange - a callback on change
-          - onDetect - callback to hit API
-     - Contains the input field, capture change
-     - Leverages the detection hook thingy
-     - Callback onChange so parent always has compleet tweet  
-     - Callback onDetect so parent can do Search
-
-- ```<SelectableList thingy>```
-     - props:
-          - data - an array of objects
-     - keyboard events should be fun
-
-- ```<SelectableListItem>```
-     - props: data 
-     - list item components
-     - style/layout for users, 
-     - probably callback on click passing data
-
-
-- **Additional stuff, priority**
-     - 1. debounce
-     ✅ 3. keyboard navigation in slectable list
-     ✅ 2. chars remaining
-     - 4. Make it perty
 
 <img src="./twitter-screenshot.png" />

@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
 import Avatar from '../Avatar/Avatar'
 import SelectList from '../SelectList/SelectList'
 import SelectListUser from '../SelectListUser/SelectListUser'
@@ -10,20 +11,27 @@ import useMaxChar from '../../hooks/useMaxChar'
 import styles from './Tweet.module.css'
 import { userSearchUrl } from '../../config/urls'
 
-const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
+const propTypes =  {
+  maxChars: PropTypes.number,
+  placeholder: PropTypes.string
+}
+const defaultProps = {
+  maxChars: 280,
+  placeholder: 'What\'s Happening?'
+}
+
+const Tweet = ({maxChars, placeholder}) => {
   const [input, setInput] = useState('')
   const [searchUrl, setSearchUrl] = useState(null)
-  const {data, loading} = useApiGet(searchUrl)
+  const {data, loading} = useApiGet(searchUrl, 200)
   const {bounds, onCursor, setCursor, events} = useWordFind(input)
-  const {remaining, percent, exceeded} = useMaxChar(input, maxChars)
-  const txtRef = useRef(null)
+  const {percent, exceeded} = useMaxChar(input, maxChars)
   
   const onSelectItem = (data) => {
     const newStr = replaceAt(input, `@${data.screen_name} `, bounds.start, bounds.end)
     setInput(newStr)
     setCursor(1000)
     setSearchUrl(null)
-    txtRef.current.focus();
   }
 
   useEffect(() => {
@@ -39,7 +47,10 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
     setInput(e.target.value)
     onCursor(e)
   }
-  
+
+  const searchData = data && data.users ? data.users : null
+
+
   return (
     <div  data-testid="tweet" className={styles.Tweet}>
       
@@ -52,7 +63,6 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
           <div className={styles.tweetText}>
             <textarea 
               className={exceeded ? styles.maxed : null }
-              ref={txtRef}
               value={input}
               placeholder={placeholder}
               {...events}
@@ -69,14 +79,16 @@ const Tweet = ({placeholder = "What's Happening", maxChars=280}) => {
           </div>
         </div>
       </div>
-        {data && data.users &&
-          // Compose children for flexibility (i.e. #hashtags)
-          <SelectList data={data.users} loading={loading} onSelect={onSelectItem}>
-            <SelectListUser />
-          </SelectList>
-        }
+      {(loading || searchData ) &&(
+        <SelectList data={searchData} loading={loading} onSelect={onSelectItem}>
+          <SelectListUser />
+        </SelectList>
+      )}
     </div>
   )
 }
+
+Tweet.propTypes = propTypes
+Tweet.defaultProps = defaultProps
 
 export default Tweet

@@ -1,12 +1,19 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
-/**
- * Percent Chart
- * Loosely borrowed from http://jsfiddle.net/zap4f/1/ which I stubled on from stackoverflow
- * @param percent - the percentage to display
- * @param size - default to "ring" can be a piechart 
- */
-const PercentCircle = ({percent, size=30, type='ring'}) => {
+const propTypes =  {
+  percent: PropTypes.number,
+  size: PropTypes.number,
+  type: PropTypes.string
+}
+
+const defaultProps = {
+  size: 30,
+  type: 'ring',
+  percent: 0
+}
+
+const PercentCircle = ({percent, size, type}) => {
   const degrees = Math.ceil(360 * (percent/100))
 
   const highlight = '#fc9911'
@@ -32,8 +39,6 @@ const PercentCircle = ({percent, size=30, type='ring'}) => {
     height: size,
     backgroundImage: updateBg(degrees),
     position: 'relative',
-    width: size,
-    height: size,
     borderRadius: '100%',
     backgroundColor: fill
   }
@@ -54,5 +59,8 @@ const PercentCircle = ({percent, size=30, type='ring'}) => {
     </div>
   )
 }
+
+PercentCircle.propTypes = propTypes
+PercentCircle.defaultProps = defaultProps
 
 export default PercentCircle

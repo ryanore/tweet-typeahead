@@ -1,17 +1,15 @@
-import { useEffect, useState } from "react"
-
+import { useEffect, useState, useCallback } from "react"
+import debounce from 'lodash/debounce'
 /**
  * Hook - useApiGet
  * @param {string} url - The url to request.  Hook only executes when url changes
- * 
- * The useEffect only executes when the url arg changes.  
- * Debouncing takes place in the component level
+ * The useEffect only executes when the url changes.  
  */
-export const useApiGet = (url) => {
+export const useApiGet = (url, wait) => {
   const [state, setState] = useState({ data: null, loading: false, error: null })
-
-  useEffect(() => {
-    const fetchData = async () => {
+  
+  const debouncedRequest = useCallback(
+    debounce(async (url) => {
       try {
         const res = await fetch(url)
         const json = await res.json()
@@ -19,16 +17,20 @@ export const useApiGet = (url) => {
       } catch (e) {
         setState({ data: null, loading: false, error: e })
       }
-    }
+    }, wait),
+    [wait]
+  );
 
+  useEffect(() => {
     if (url) {
-      fetchData()
+      setState({ data: null, loading: true, error: null })
+      debouncedRequest(url);
     } else {
       setState({ data: null, loading: false, error: null })
     }
-
   }, [url])
-  
-  return state
+
+  return {
+    ...state
+  }
 }
-  
