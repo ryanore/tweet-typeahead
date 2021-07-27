@@ -1,4 +1,3 @@
-# Sprout Social Applicant Homework
 
 ## Environment Dependencies:
 

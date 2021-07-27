@@ -2,7 +2,7 @@ import React from 'react'
 import { cleanup, fireEvent, render, wait } from '@testing-library/react'
 import Tweet from './Tweet'
 
-const strWithHandle = 'the best is @sproutSocial in @Chicago'
+const strWithHandle = 'the best is @fooSocial in @Chicago'
 
 const defaults = {
   placeholder:'placeholder'
@@ -48,7 +48,7 @@ describe('<Tweet> Component',() => {
       }))
     
     it('only triggers an API request when cursor is on @handle text', async () => {
-      const msg = 'I love @sproutSocial in @chicago loop'
+      const msg = 'I love @fooSocial in @chicago loop'
       const { input } = setup()    
       
       // add some text
@@ -66,7 +66,7 @@ describe('<Tweet> Component',() => {
       await wait(() => expect(spy).toHaveBeenCalledTimes(0))
       spy.mockClear()
 
-      // put the cursor on on the space after "@sproutSocial", and trigger cursor again
+      // put the cursor on on the space after "@fooSocial", and trigger cursor again
       input.selectionStart = 20
       fireEvent.click(input)
       await wait(() => expect(spy).toHaveBeenCalledTimes(0))
@@ -75,13 +75,13 @@ describe('<Tweet> Component',() => {
   
 
     it('can handle multiple @handles', async () => {
-      const msg = 'I love @sproutSocial in @chicago loop'
+      const msg = 'I love @fooSocial in @chicago loop'
       const { input } = setup()    
       
       // add some text
       fireEvent.change(input, { target: { value: msg } })
 
-      // put the cursor on "@sproutSocial", and trigger cursor again
+      // put the cursor on "@fooSocial", and trigger cursor again
       input.selectionStart = 10
       fireEvent.click(input)
       await wait(() => expect(spy).toHaveBeenCalledTimes(1))
